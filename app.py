@@ -102,3 +102,5 @@ for year in major_ticks[::2]:
         yref="paper",
         line=dict(color="lightgray", width=1, dash="dash")
     )
+
+st.plotly_chart(fig, use_container_width=True)
