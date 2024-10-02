@@ -56,7 +56,7 @@ fig.update_layout(
         'zeroline': False,
     },
     xaxis={
-        'range': [2008, 2026],
+        'range': [2007, 2026],
         'tickfont': {'size': 14, 'color': '#787878'},
         'showgrid': False,  # We'll add custom grid lines later
         'zeroline': False,
