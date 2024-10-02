@@ -2,26 +2,41 @@ import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
 
-# page config
-st.set_page_config(
-    page_title="Elias Ortiz",
-    page_icon="🏂"
-)
-
-
 # Data
-jobs = ['UdeG', 'INP', 'UoE', 'HAL', 'Schlumberger', 'Whittaker Engineering', 'RFD']
+company = ['UdeG', 'INP', 'UoE', 'HAL', 'Schlumberger', 'Whittaker Engineering', 'RFD']
+company_long = [
+    'Universidad de Gudalajara',
+    'Grenoble INP',
+    'University of Edinburgh',
+    'Halliburton',
+    'Schlumberger',
+    'Whittaker Engineering',
+    'Rock Flow Dynamics'
+]
+position = [
+    'Bsc. Physics',
+    'MRes. Fluid Dynamics',
+    'Msc. Exploration Geophysics',
+    'Intern Geophysicist',
+    'Geophysicist',
+    'Data Scientist',
+    'Senior Geophysicist'
+    ]
 starts = [2008, 2011, 2012, 2013, 2013.6, 2018, 2024.7]
 ends = [2011, 2012, 2013, 2013.6, 2018, 2024.7, 2026]
 colors = ['#f1c40f', '#dc7633', '#ff9999', '#c0392b', '#1f77b4', '#00008b', '#3CB371']
+country = ['Mexico', 'France', 'U.K.', 'U.K.', 'U.K.', 'Mexico & U.K.', 'U.K.']
 
 # Create a DataFrame
 df = pd.DataFrame({
-    'Job': jobs,
+    'Company': company,
+    'Company_name': company_long,
+    'Position': position,
     'Start': starts,
     'End': ends,
     'Color': colors,
-    'Duration': [end - start for start, end in zip(starts, ends)]
+    'Duration': [end - start for start, end in zip(starts, ends)],
+    'Country': country,
 })
 
 # Sort the DataFrame to reverse the order (bottom to top)
@@ -33,16 +48,22 @@ fig = go.Figure()
 # Add the horizontal bars
 for i, row in df.iterrows():
     fig.add_trace(go.Bar(
-        y=[row['Job']],
+        y=[row['Company']],
         x=[row['Duration']],
         orientation='h',
         marker_color=row['Color'],
-        name=row['Job'],
-        hoverinfo='text',
-        hovertext=f"Job: {row['Job']}<br>Period: {row['Start']:.1f} - {row['End']:.1f}<br>Duration: {row['Duration']:.1f} years",
+        name=row['Company'],
+        customdata=[[row['Company_name'], row['Position'], row['Country']]],
+        hovertemplate="<b>Company:</b> %{customdata[0]}<br>" +
+                      "<b>Position:</b> %{customdata[1]}<br>" +
+                      "<b>Country:</b> %{customdata[2]}<br>" +
+                      "<extra></extra>",
+        #hoverinfo='text',
+        #hovertext=f"Position: {row['Position']}<br>Period: {row['Start']:.1f} - {row['End']:.1f}<br>Duration: {row['Duration']:.1f} years",
         showlegend=False,
         base=row['Start']
     ))
+
 
 # Customize the layout
 fig.update_layout(
@@ -56,15 +77,15 @@ fig.update_layout(
     barmode='overlay',
     yaxis={
         'categoryorder': 'array',
-        'categoryarray': df['Job'].tolist(),
+        'categoryarray': df['Company'].tolist(),
         'showticklabels': False,  # Remove y-axis tick labels
         'showgrid': False,
         'showline': False,
         'zeroline': False,
     },
     xaxis={
-        'range': [2007, 2026],
-        'tickfont': {'size': 16},#, 'color': '#787878'},
+        'range': [2007, 2027],
+        'tickfont': {'size': 14},# , 'color': '#787878'},
         'showgrid': False,  # We'll add custom grid lines later
         'zeroline': False,
     },
@@ -76,8 +97,8 @@ fig.update_layout(
 for i, row in df.iterrows():
     fig.add_annotation(
         x=row['Start'] - 0.1,
-        y=row['Job'],
-        text=row['Job'],
+        y=row['Company'],
+        text=row['Company'],
         showarrow=False,
         font={'size': 14, 'color': 'white'},
         xanchor='left',
@@ -102,7 +123,7 @@ fig.update_xaxes(
 )
 
 # Add custom grid lines for every other major tick
-for year in major_ticks[::2]:
+for year in major_ticks[::1]:
     fig.add_shape(
         type="line",
         x0=year, x1=year, y0=0, y1=1,
