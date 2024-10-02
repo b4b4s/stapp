@@ -5,6 +5,12 @@ import base64
 from PIL import Image
 from io import BytesIO
 
+st.set_page_config(
+    layout="wide",
+    page_title="Elias",
+    page_icon=":skateboard:"
+    )
+
 # Function to encode image to base64
 def encode_image(image_path):
     img = Image.open(image_path)
