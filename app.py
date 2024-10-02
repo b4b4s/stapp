@@ -44,8 +44,8 @@ fig.update_layout(
         'font': {'size': 24},
         'x': 0.01,
     },
-    height=500,
-    width=800,
+    height=700,
+    width=1000,
     barmode='overlay',
     yaxis={
         'categoryorder': 'array',
@@ -103,4 +103,4 @@ for year in major_ticks[::2]:
         line=dict(color="lightgray", width=1, dash="dash")
     )
 
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig)
