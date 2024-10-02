@@ -2,6 +2,13 @@ import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
 
+# page config
+st.set_page_config(
+    page_title="Elias Ortiz",
+    page_icon="🏂"
+)
+
+
 # Data
 jobs = ['UdeG', 'INP', 'UoE', 'HAL', 'Schlumberger', 'Whittaker Engineering', 'RFD']
 starts = [2008, 2011, 2012, 2013, 2013.6, 2018, 2024.7]
