@@ -27,7 +27,7 @@ company = [
     'HAL',
     'Schlumberger',
     'Whittaker Eng. MX',
-    'Whittaker Eng.',
+    'Whittaker Engineering.',
     'RFD'
     ]
 
