@@ -62,7 +62,7 @@ fig.update_layout(
         'zeroline': False,
     },
     plot_bgcolor='white',
-    margin={'l': 0, 'r': 30, 't': 80, 'b': 50}  # Reduced left margin
+    margin={'l': 30, 'r': 30, 't': 80, 'b': 50}  # Reduced left margin
 )
 
 # Add text labels to the bars
