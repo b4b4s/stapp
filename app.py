@@ -1,75 +1,104 @@
 import streamlit as st
 import plotly.graph_objects as go
-
-st.title("Wa")
+import pandas as pd
 
 # Data
 jobs = ['UdeG', 'INP', 'UoE', 'HAL', 'Schlumberger', 'Whittaker Engineering', 'RFD']
-starts = [2009, 2011, 2012, 2013, 2013.6, 2018, 2024.7]
+starts = [2008, 2011, 2012, 2013, 2013.6, 2018, 2024.7]
 ends = [2011, 2012, 2013, 2013.6, 2018, 2024.7, 2026]
-colors = ['#f1c40f', '#dc7633', '#ff9999', '#c0392b', '#1f77b4', '#00008b', '#3CB371']  # Job-specific colors
-durations = [end - start for start, end in zip(starts, ends)]
-y_pos = list(reversed(range(len(jobs))))  # Assign each job a vertical position
+colors = ['#f1c40f', '#dc7633', '#ff9999', '#c0392b', '#1f77b4', '#00008b', '#3CB371']
 
-# Create bars for each job
-bars = []
-for i in range(len(jobs)):
-    bars.append(go.Bar(
-        x=[durations[i]],  # Duration of each job
-        y=[jobs[i]],       # Job names for the y-axis
-        base=[starts[i]],  # Starting year for each job
-        orientation='h',   # Horizontal bar
-        marker=dict(color=colors[i], line=dict(color='white', width=1)),
-        hovertemplate=f"<b>{jobs[i]}</b><br>Period: {starts[i]} - {ends[i]}<br>Duration: {durations[i]} years<extra></extra>"
-    ))
+# Create a DataFrame
+df = pd.DataFrame({
+    'Job': jobs,
+    'Start': starts,
+    'End': ends,
+    'Color': colors,
+    'Duration': [end - start for start, end in zip(starts, ends)]
+})
+
+# Sort the DataFrame to reverse the order (bottom to top)
+df = df.sort_values('Start', ascending=False).reset_index(drop=True)
 
 # Create the figure
-fig = go.Figure(data=bars)
+fig = go.Figure()
+
+# Add the horizontal bars
+for i, row in df.iterrows():
+    fig.add_trace(go.Bar(
+        y=[row['Job']],
+        x=[row['Duration']],
+        orientation='h',
+        marker_color=row['Color'],
+        name=row['Job'],
+        hoverinfo='text',
+        hovertext=f"Job: {row['Job']}<br>Period: {row['Start']:.1f} - {row['End']:.1f}<br>Duration: {row['Duration']:.1f} years",
+        showlegend=False,
+        base=row['Start']
+    ))
 
 # Customize the layout
 fig.update_layout(
-    title=dict(text='Career Timeline: Elias', font=dict(size=19), x=0.05),
-    barmode='stack',
+    title={
+        'text': "Career Timeline: Elias",
+        'font': {'size': 24},
+        'x': 0.01,
+    },
     height=500,
     width=800,
-    xaxis=dict(
-        range=[2009, 2026],
-        tickvals=[2009, 2011, 2013, 2015, 2017, 2019, 2021, 2023, 2025],
-        ticktext=[str(i) for i in range(2009, 2026)] + ['Present'],
-        tickmode='array',
-        tickangle=-45,
-        showgrid=True,
-        gridcolor='lightgray',
-        dtick=2,  # Control tick interval
-        ticks="outside",
-        ticklen=10,
-        tickwidth=2,
-        tickcolor="gray",
-        showline=True
-    ),
-    yaxis=dict(
-        showticklabels=False,
-        showgrid=False,
-        zeroline=False
-    ),
-    paper_bgcolor='white',
+    barmode='overlay',
+    yaxis={
+        'categoryorder': 'array',
+        'categoryarray': df['Job'].tolist(),
+        'showticklabels': False,  # Remove y-axis tick labels
+        'showgrid': False,
+        'showline': False,
+        'zeroline': False,
+    },
+    xaxis={
+        'range': [2009, 2026],
+        'tickfont': {'size': 11, 'color': '#787878'},
+        'showgrid': False,  # We'll add custom grid lines later
+        'zeroline': False,
+    },
     plot_bgcolor='white',
-    showlegend=False
+    margin={'l': 0, 'r': 30, 't': 80, 'b': 50}  # Reduced left margin
 )
 
-# Add annotations for job labels (similar to Bokeh's LabelSet)
-for i, job in enumerate(jobs):
+# Add text labels to the bars
+for i, row in df.iterrows():
     fig.add_annotation(
-        dict(
-            x=starts[i],
-            y=i,
-            text=job,
-            showarrow=False,
-            xanchor='left',
-            yanchor='middle',
-            font=dict(size=10, color='white')
-        )
+        x=row['Start'] - 0.1,
+        y=row['Job'],
+        text=row['Job'],
+        showarrow=False,
+        font={'size': 12, 'color': 'white'},
+        xanchor='left',
+        xshift=5
     )
 
-# Show the plot
-st.plotly_chart(fig, use_container_width=True)
+# Adjust x-axis ticks and grid lines
+major_ticks = list(range(2008, 2026, 2))
+minor_ticks = [year + 1 for year in major_ticks[:-1]]
+
+fig.update_xaxes(
+    ticktext=[str(year) if year != 2026 else 'Present' for year in major_ticks],
+    tickvals=major_ticks,
+    tickmode='array',
+    minor=dict(
+        ticklen=4,
+        tickcolor='#787878',
+        tickmode='array',
+        tickvals=minor_ticks,
+        tickwidth=1
+    )
+)
+
+# Add custom grid lines for every other major tick
+for year in major_ticks[::2]:
+    fig.add_shape(
+        type="line",
+        x0=year, x1=year, y0=0, y1=1,
+        yref="paper",
+        line=dict(color="lightgray", width=1, dash="dash")
+    )
