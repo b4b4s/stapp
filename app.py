@@ -72,7 +72,7 @@ for i, row in df.iterrows():
         y=row['Job'],
         text=row['Job'],
         showarrow=False,
-        font={'size': 12, 'color': 'white'},
+        font={'size': 14, 'color': 'white'},
         xanchor='left',
         xshift=5
     )
