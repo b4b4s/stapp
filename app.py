@@ -57,7 +57,7 @@ fig.update_layout(
     },
     xaxis={
         'range': [2007, 2026],
-        'tickfont': {'size': 14, 'color': '#787878'},
+        'tickfont': {'size': 16, 'color': '#787878'},
         'showgrid': False,  # We'll add custom grid lines later
         'zeroline': False,
     },
@@ -72,7 +72,7 @@ for i, row in df.iterrows():
         y=row['Job'],
         text=row['Job'],
         showarrow=False,
-        font={'size': 12, 'color': 'white'},
+        font={'size': 14, 'color': 'white'},
         xanchor='left',
         xshift=5
     )
