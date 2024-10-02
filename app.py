@@ -2,6 +2,13 @@ import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
 
+st.set_page_config(
+    page_title="Elias",
+    page_icon="🏂",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
+
 # Data
 company = ['UdeG', 'INP', 'UoE', 'HAL', 'Schlumberger', 'Whittaker Engineering', 'RFD']
 company_long = [
