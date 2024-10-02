@@ -44,7 +44,7 @@ fig.update_layout(
         'font': {'size': 24},
         'x': 0.01,
     },
-    height=700,
+    height=600,
     width=1000,
     barmode='overlay',
     yaxis={
@@ -57,7 +57,7 @@ fig.update_layout(
     },
     xaxis={
         'range': [2009, 2026],
-        'tickfont': {'size': 11, 'color': '#787878'},
+        'tickfont': {'size': 14, 'color': '#787878'},
         'showgrid': False,  # We'll add custom grid lines later
         'zeroline': False,
     },
