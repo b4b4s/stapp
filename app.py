@@ -1,22 +1,37 @@
 import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
+import base64
+from PIL import Image
+from io import BytesIO
 
-st.set_page_config(
-    page_title="Elias",
-    page_icon="🏂",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
+# Function to encode image to base64
+def encode_image(image_path):
+    img = Image.open(image_path)
+    img = img.resize((30, 20))  # Resize image to 30x20 pixels
+    buffer = BytesIO()
+    img.save(buffer, format="PNG")
+    encoded_image = base64.b64encode(buffer.getvalue()).decode('utf-8')
+    return f"data:image/png;base64,{encoded_image}"
 
-# Data
-company = ['UdeG', 'INP', 'UoE', 'HAL', 'Schlumberger', 'Whittaker Engineering', 'RFD']
+# Your existing data setup...
+company = [
+    'UdeG',
+    'INP', 'UoE',
+    'HAL',
+    'Schlumberger',
+    'WEL MX',
+    'WEL',
+    'RFD'
+    ]
+
 company_long = [
     'Universidad de Gudalajara',
     'Grenoble INP',
     'University of Edinburgh',
     'Halliburton',
     'Schlumberger',
+    'Whittaker Engineering MX',
     'Whittaker Engineering',
     'Rock Flow Dynamics'
 ]
@@ -27,12 +42,23 @@ position = [
     'Intern Geophysicist',
     'Geophysicist',
     'Data Scientist',
+    'Data Scientist',
     'Senior Geophysicist'
     ]
-starts = [2008, 2011, 2012, 2013, 2013.6, 2018, 2024.7]
-ends = [2011, 2012, 2013, 2013.6, 2018, 2024.7, 2026]
-colors = ['#f1c40f', '#dc7633', '#ff9999', '#c0392b', '#1f77b4', '#00008b', '#3CB371']
-country = ['Mexico', 'France', 'U.K.', 'U.K.', 'U.K.', 'Mexico & U.K.', 'U.K.']
+
+starts = [2008, 2011, 2012, 2013, 2013.6, 2018, 2021,  2024.7]
+
+ends = [2011, 2012, 2013, 2013.6, 2018, 2021, 2024.7, 2026]
+
+colors = ['#f1c40f', '#dc7633', '#ff9999', '#c0392b', '#1f77b4', '#00008b', '#00008b', '#3CB371']
+country = ['Mexico', 'France', 'Scotland', 'England', 'Scotland', 'Mexico', 'Scotland', 'Scotland']
+
+flag_paths = {
+    'Mexico': 'images/mx.png',
+    'France': 'images/fr.png',
+    'Scotland': 'images/sco.png',
+    'England': 'images/eng.png'
+}
 
 # Create a DataFrame
 df = pd.DataFrame({
@@ -44,7 +70,11 @@ df = pd.DataFrame({
     'Color': colors,
     'Duration': [end - start for start, end in zip(starts, ends)],
     'Country': country,
+    'Flag': [flag_paths[c] for c in country]
 })
+
+# Encode flag images
+df['EncodedFlag'] = df['Flag'].apply(encode_image)
 
 # Sort the DataFrame to reverse the order (bottom to top)
 df = df.sort_values('Start', ascending=False).reset_index(drop=True)
@@ -59,20 +89,37 @@ for i, row in df.iterrows():
         x=[row['Duration']],
         orientation='h',
         marker_color=row['Color'],
+        marker_line_color='white',
+        marker_line_width=1,
         name=row['Company'],
         customdata=[[row['Company_name'], row['Position'], row['Country']]],
-        hovertemplate="<b>Company:</b> %{customdata[0]}<br>" +
-                      "<b>Position:</b> %{customdata[1]}<br>" +
-                      "<b>Country:</b> %{customdata[2]}<br>" +
-                      "<extra></extra>",
-        #hoverinfo='text',
-        #hovertext=f"Position: {row['Position']}<br>Period: {row['Start']:.1f} - {row['End']:.1f}<br>Duration: {row['Duration']:.1f} years",
+        hovertemplate=(
+            "<span style='font-size: 16px;'><b>Company:</b> %{customdata[0]}</span><br>" +
+            "<span style='font-size: 16px;'><b>Position:</b> %{customdata[1]}</span><br>" +
+            "<span style='font-size: 16px;'><b>Country:</b> %{customdata[2]}</span><br>" +
+            "<extra></extra>"
+        ),
         showlegend=False,
         base=row['Start']
     ))
 
+    # Add flag image at the end of each bar
+    fig.add_layout_image(
+        dict(
+            source=row['EncodedFlag'],
+            xref="x",
+            yref="y",
+            x=row['End'] + 0.1,
+            y=row['Company'],
+            sizex=0.5,
+            sizey=0.8,
+            xanchor="left",
+            yanchor="middle",
+            layer="above"
+        )
+    )
 
-# Customize the layout
+# The rest of your layout code remains the same...
 fig.update_layout(
     title={
         'text': "Career Timeline: Elias",
@@ -85,19 +132,19 @@ fig.update_layout(
     yaxis={
         'categoryorder': 'array',
         'categoryarray': df['Company'].tolist(),
-        'showticklabels': False,  # Remove y-axis tick labels
+        'showticklabels': False,
         'showgrid': False,
         'showline': False,
         'zeroline': False,
     },
     xaxis={
         'range': [2007, 2027],
-        'tickfont': {'size': 14},# , 'color': '#787878'},
-        'showgrid': False,  # We'll add custom grid lines later
+        'tickfont': {'size': 14},
+        'showgrid': False,
         'zeroline': False,
     },
     plot_bgcolor='white',
-    margin={'l': 30, 'r': 30, 't': 80, 'b': 50}  # Reduced left margin
+    margin={'l': 30, 'r': 30, 't': 80, 'b': 50}
 )
 
 # Add text labels to the bars
@@ -129,13 +176,14 @@ fig.update_xaxes(
     )
 )
 
-# Add custom grid lines for every other major tick
-for year in major_ticks[::1]:
+# Add custom grid lines for every major tick
+for year in major_ticks:
     fig.add_shape(
         type="line",
         x0=year, x1=year, y0=0, y1=1,
         yref="paper",
         line=dict(color="lightgray", width=1, dash="dash")
     )
+
 
 st.plotly_chart(fig)
