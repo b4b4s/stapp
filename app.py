@@ -26,8 +26,8 @@ company = [
     'INP', 'UoE',
     'HAL',
     'Schlumberger',
-    'WEL MX',
-    'WEL',
+    'Whittaker Eng. MX',
+    'Whittaker Eng.',
     'RFD'
     ]
 
