@@ -46,8 +46,7 @@ st.markdown("##")
 c1, c2, c3 = st.columns(3)
 with c2:
     st.image(
-        "logos/rfd.png",
-    width=200
+        "logos/rfd.png"
     )
 
 
