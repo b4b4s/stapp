@@ -9,7 +9,9 @@ st.set_page_config(
 st.title("Hobbies")
 st.write("---")
 
-st.video("images/am.mp4")
+video_file = open('images/am.mp4', 'rb')
+video_bytes = video_file.read()
+st.video(video_bytes)
 
 
 st.write("---")
