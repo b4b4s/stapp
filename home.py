@@ -8,7 +8,8 @@ from io import BytesIO
 st.set_page_config(
     layout="wide",
     page_title="Elias",
-    page_icon=":skateboard:"
+    page_icon=":skateboard:",
+
     )
 
 st.title("About Me")
@@ -17,7 +18,7 @@ col1, col2, col3 = st.columns(3)
 
 # first column
 with col1:
-    st.header("text")
+    st.header("")
 
 with col2:
     st.header("")
@@ -28,6 +29,8 @@ with col3:
 st.write("---")
 
 st.subheader(
-    ":male-technologist: Name: Elias Ortiz"
+    ":black_nib: Name: Elias Ortiz"
+    ":male-technologist: Position: Senior Geophysicist"
+    ":earth_americas: Nationality: Mexican :flag-mx:"
 )
 
