@@ -14,24 +14,22 @@ st.set_page_config(
 
 st.title("About Me")
 
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns()
 
 # first column
 with col1:
-    st.header("")
+    st.subheader(":black_nib: Name: Elias Ortiz")
+    st.subheader(":male-technologist: Position: Senior Geophysicist")
+    st.subheader(":earth_americas: Nationality: Mexican :flag-mx:")
+    st.subheader("round_pushpin: Location: Aberdeen")
+    st.subheader("📊 Interests: Geophysics, Multivariate Statistics\
+                  Data Science & Machine Learning, Product Development")
 
 with col2:
     st.header("")
 
-with col3:
-    st.header("")
 
 st.write("---")
 
-# About me
-st.subheader(":black_nib: Name: Elias Ortiz")
-st.subheader(":male-technologist: Position: Senior Geophysicist")
-st.subheader(":earth_americas: Nationality: Mexican :flag-mx:")
-st.subheader(":world_map: Location: Aberdeen")
 
 
