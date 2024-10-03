@@ -18,7 +18,7 @@ col1, col2 = st.columns(2)
 
 # first column
 with col1:
-    st.markdown("black_nib: **Name**: Elias Ortiz")
+    st.markdown(":black_nib: ### **Name**: Elias Ortiz")
     # st.subheader(":black_nib: Name: Elias Ortiz")
     # st.subheader(":male-technologist: Position: Senior Geophysicist")
     # st.subheader(":earth_americas: Nationality: Mexican :flag-mx:")
