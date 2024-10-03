@@ -28,9 +28,10 @@ with col3:
 
 st.write("---")
 
-st.subheader(
-    ":black_nib: Name: Elias Ortiz"
-    ":male-technologist: Position: Senior Geophysicist"
-    ":earth_americas: Nationality: Mexican :flag-mx:"
-)
+# About me
+st.subheader(":black_nib: Name: Elias Ortiz")
+st.subheader(":male-technologist: Position: Senior Geophysicist")
+st.subheader(":earth_americas: Nationality: Mexican :flag-mx:")
+st.subheader(":world_map: Location: Aberdeen")
+
 
