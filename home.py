@@ -23,4 +23,4 @@ with col2:
     st.header("")
 
 with col3:
-    st.image("/logos/rfd.png")
+    st.image("logos/rfd.png")
