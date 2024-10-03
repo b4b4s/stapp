@@ -8,13 +8,25 @@ st.set_page_config(
 
 st.title("Hobbies")
 st.write("---")
+st.subheader("Skateboarding")
 
-video_file = open('images/am.mp4', 'rb')
-video_bytes = video_file.read()
-st.video(
-    video_bytes,
-    end_time=7
-    )
+# tabs
+tab1, tab2 = st.tabs(["Amazing 🤯", "Real 🥲"])
+
+with tab1:
+    video_file = open('images/am.mp4', 'rb')
+    video_bytes = video_file.read()
+    st.video(
+        video_bytes,
+        end_time=7
+        )
+
+with tab2:
+    video_file2 = open('images/sk.mp4', 'rb')
+    video_bytes2 = video_file2.read()
+    st.video(
+        video_bytes2
+        )
 
 
 st.write("---")
