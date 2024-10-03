@@ -11,7 +11,10 @@ st.write("---")
 
 video_file = open('images/am.mp4', 'rb')
 video_bytes = video_file.read()
-st.video(video_bytes)
+st.video(
+    video_bytes,
+    end_time=7
+    )
 
 
 st.write("---")
