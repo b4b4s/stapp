@@ -27,11 +27,7 @@ with col3:
 
 st.write("---")
 
-st.markdown(
-    """
-    :male-technologist: <b> Name: </b> Elias Ortiz
-    Geophysicist & Data Scientist with 11 years of experience in the oil and gas industry. 
-    I am passionate about using data to drive insights and solve complex problems. 
-    """
+st.subheader(
+    ":male-technologist: Name: Elias Ortiz"
 )
 
