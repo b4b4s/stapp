@@ -39,11 +39,13 @@ with col2:
 
 st.write("---")
 
+# make some space
+st.markdown("##")
 
 # bottom image (centered)
 c1, c2, c3 = st.columns(3)
 with c2:
-    st.image("logos/rfd.png.png")
+    st.image("logos/rfd.png")
 
 
 
