@@ -11,7 +11,7 @@ st.set_page_config(
     page_icon=":skateboard:"
     )
 
-st.title("About Me: Elias Ortiz")
+st.title("About Me")
 
 col1, col2, col3 = st.columns(3)
 
@@ -23,4 +23,15 @@ with col2:
     st.header("")
 
 with col3:
-    st.image("logos/rfd.png")
+    st.header("")
+
+st.write("---")
+
+st.markdown(
+    """
+    :male-technologist: <b> Name: </b> Elias Ortiz
+    Geophysicist & Data Scientist with 11 years of experience in the oil and gas industry. 
+    I am passionate about using data to drive insights and solve complex problems. 
+    """
+)
+
