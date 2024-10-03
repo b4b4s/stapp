@@ -20,8 +20,8 @@ col1, col2 = st.columns(2)
 # first column
 with col1:
     st.markdown("**Geophysicist & Data Scientist** with 11 years of experience in the oil and gas industry. \
-                I worked on projects across international locations (Azerbaijan, Oman, Egypt, \
-                Morocco, Mexico, U.K.). I enjoy distilling complex concepts into simple, clear terms. \
+                I worked on projects across international locations including: Azerbaijan, Oman, Egypt, \
+                Morocco, Mexico, and U.K.. I enjoy distilling complex concepts into simple, clear terms. \
                  I find it fascinating that combining quantitative and qualitative approaches provides a \
                 deeper understanding of the subsurface, as neither can reveal the complete picture on its own.")
     st.markdown(":black_nib: **Name**: Elias Ortiz")
