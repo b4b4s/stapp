@@ -14,7 +14,7 @@ st.set_page_config(
 
 st.title("About Me")
 
-col1, col2 = st.columns()
+col1, col2 = st.columns(2)
 
 # first column
 with col1:
