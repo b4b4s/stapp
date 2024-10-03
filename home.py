@@ -19,7 +19,7 @@ col1, col2 = st.columns(2)
 
 # first column
 with col1:
-    st.markdown("Geophysicist & Data Scientist with 11 years of experience in the oil and gas industry. \
+    st.markdown("**Geophysicist & Data Scientist** with 11 years of experience in the oil and gas industry. \
                 Worked on projects across international locations (Azerbaijan, Oman, Egypt, \
                 Morocco, Mexico, U.K.). I enjoy distilling complex concepts into simple, clear terms. \
                 I’m always fascinated by how combining quantitative and qualitative approaches gives us a deeper \
@@ -33,11 +33,18 @@ with col1:
     st.markdown("👍 **Hobbies**: Skateboarding, Sourdough & Cooking,\
                  Fantasy Premier League (435k 🥲)")
 
+# second column
 with col2:
     st.image("images/eq.png")
 
-
 st.write("---")
+
+
+# bottom image (centered)
+c1, c2, c3 = st.columns(3)
+with c2:
+    st.image("logos/rfd.png.png")
+
 
 
 
