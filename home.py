@@ -13,7 +13,7 @@ st.set_page_config(
 
 st.title("About Me: Elias Ortiz")
 
-col1, col2, col3 - st.columns(3)
+col1, col2, col3 = st.columns(3)
 
 # first column
 with col1:
