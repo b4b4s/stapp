@@ -19,7 +19,12 @@ col1, col2 = st.columns(2)
 
 # first column
 with col1:
+    st.markdown("Geophysicist & Data Scientist with 11 years of experience in the oil and gas industry \
+                Worked on projects across international locations (Azerbaijan, Oman, Egypt \
+                Morocco, Mexico, U.K.). Experienced in Python. I like distill complex concepts \
+                into simple terms. I’m always fascinated by how combining quantitative and qualitative approaches gives us a deeper understanding of the subsurface. Neither approach alone can reveal the complete picture.")
     st.markdown(":black_nib: **Name**: Elias Ortiz")
+    st.markdown("##")  # Add some space between the image and the text
     st.markdown(":male-technologist: **Position**: Senior Geophysicist")
     st.markdown(":earth_americas: **Nationality**: Mexican")
     st.markdown(":round_pushpin: **Location**: Aberdeen")
