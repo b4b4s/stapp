@@ -36,12 +36,12 @@ tab11, tab22 = st.tabs(["1st try 🥲", "Current 💪"])
 
 with tab11:
     st.image(
-        "images/first.jpg"
+        "images/first.jpeg"
     )
 
 with tab22:
     st.image(
-        "images/last.jpg"
+        "images/last.jpeg"
     )
 
 
